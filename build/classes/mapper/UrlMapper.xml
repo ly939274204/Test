@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 给一个mapper指定唯一一个命名空间 -->
+<!-- namespace的命名习惯 包名+映射文件名 -->
+<mapper namespace="dao.UrlDao">
+
+	<select id="getUrl" resultType="String">
+		SELECT
+		longurl.longurl FROM
+		longurl,shorturl
+		WHERE shorturl.`u_id`=longurl.`u_id`
+		AND
+		shorturl.`shorturl`=#{0}
+	</select>
+	<select id="getallUrl" resultType="String">
+		SELECT
+		shorturl.shorturl FROM
+		longurl,shorturl
+		WHERE shorturl.`u_id`=longurl.`u_id`
+		AND
+		longurl.`longurl`=#{0}
+	</select>
+
+	<insert id="insertlongurl" parameterType="entity.Longurl" useGeneratedKeys="true" keyProperty="u_id">
+		insert into longurl(longurl) values (#{longurl})
+	</insert>
+	<insert id="insertshorturl">
+		insert into
+		shorturl(shorturl,u_id) values (#{0},#{1})
+	</insert>
+
+</mapper>

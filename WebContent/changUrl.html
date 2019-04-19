@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<script type="text/javascript" src="js/jquery.min.js"></script>
+</head>
+<body>
+
+	<form id="form1">
+		长链接<input name="longurl" type="text">  加密KEY值<input
+			name="key" type="text">
+		<button type="button" id="btn1">生成</button>
+	</form>
+	<span>生成的短链接</span>
+	<div id="div1"></div>
+</body>
+<script type="text/javascript">
+	$("#btn1").click(function() {
+		var data = $('#form1').serializeArray();
+		$.ajax({
+			url : "UrlServlet/changeUrl.do",
+			data : data,
+			datatype : "JSON",
+			success : function(result) {
+				$("#div1").empty();
+				for (var i = 0; i < result.length; i++) {
+					$("#div1").append(result[i]);
+					$("#div1").append('<br>');
+				}
+			}
+		});
+	});
+</script>
+</html>
